@@ -110,8 +110,8 @@ function App() {
                 opacity: '0.9',
                 fontSize: '0.875rem',
               }}>
-              🚀 Built with React + Node.js | Optimized for Performance | Memory
-              Leak Free ✨
+              Built with React + Node.js | Assignment Solved - Optimized for
+              Performance | Memory Leak Free ✨
             </p>
           </div>
         </footer>

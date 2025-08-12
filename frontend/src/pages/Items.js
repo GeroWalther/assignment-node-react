@@ -200,7 +200,10 @@ function Items() {
             fontSize: '0.875rem',
             minWidth: '2.75rem',
             transition: 'all 0.2s ease',
-            boxShadow: i === currentPage ? '0 4px 12px rgba(102, 126, 234, 0.3)' : 'none'
+            boxShadow:
+              i === currentPage
+                ? '0 4px 12px rgba(102, 126, 234, 0.3)'
+                : 'none',
           }}
           onMouseEnter={(e) => {
             if (!loading && i !== currentPage) {
@@ -215,31 +218,32 @@ function Items() {
               e.target.style.borderColor = '#e5e7eb';
               e.target.style.color = '#4b5563';
             }
-          }}
-        >
+          }}>
           {i}
         </button>
       );
     }
 
     return (
-      <div style={{
-        background: 'white',
-        padding: '2rem',
-        borderRadius: '1rem',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-        border: '1px solid #f1f5f9',
-        marginTop: '2rem'
-      }}>
-        {/* Pagination Controls */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '0.5rem',
-          flexWrap: 'wrap',
-          marginBottom: '1.5rem'
+      <div
+        style={{
+          background: 'white',
+          padding: '2rem',
+          borderRadius: '1rem',
+          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+          border: '1px solid #f1f5f9',
+          marginTop: '2rem',
         }}>
+        {/* Pagination Controls */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.5rem',
+            flexWrap: 'wrap',
+            marginBottom: '1.5rem',
+          }}>
           {/* Previous Button */}
           <button
             onClick={() => handlePageChange(currentPage - 1)}
@@ -253,11 +257,12 @@ function Items() {
               color: !pagination.hasPrev || loading ? '#9ca3af' : '#4b5563',
               border: '2px solid #e5e7eb',
               borderRadius: '0.75rem',
-              cursor: !pagination.hasPrev || loading ? 'not-allowed' : 'pointer',
+              cursor:
+                !pagination.hasPrev || loading ? 'not-allowed' : 'pointer',
               opacity: !pagination.hasPrev || loading ? 0.6 : 1,
               fontWeight: '600',
               fontSize: '0.875rem',
-              transition: 'all 0.2s ease'
+              transition: 'all 0.2s ease',
             }}
             onMouseEnter={(e) => {
               if (pagination.hasPrev && !loading) {
@@ -272,8 +277,7 @@ function Items() {
                 e.target.style.borderColor = '#e5e7eb';
                 e.target.style.color = '#4b5563';
               }
-            }}
-          >
+            }}>
             <span>←</span>
             Previous
           </button>
@@ -294,11 +298,12 @@ function Items() {
               color: !pagination.hasNext || loading ? '#9ca3af' : '#4b5563',
               border: '2px solid #e5e7eb',
               borderRadius: '0.75rem',
-              cursor: !pagination.hasNext || loading ? 'not-allowed' : 'pointer',
+              cursor:
+                !pagination.hasNext || loading ? 'not-allowed' : 'pointer',
               opacity: !pagination.hasNext || loading ? 0.6 : 1,
               fontWeight: '600',
               fontSize: '0.875rem',
-              transition: 'all 0.2s ease'
+              transition: 'all 0.2s ease',
             }}
             onMouseEnter={(e) => {
               if (pagination.hasNext && !loading) {
@@ -313,44 +318,48 @@ function Items() {
                 e.target.style.borderColor = '#e5e7eb';
                 e.target.style.color = '#4b5563';
               }
-            }}
-          >
+            }}>
             Next
             <span>→</span>
           </button>
         </div>
 
         {/* Pagination Info */}
-        <div style={{
-          textAlign: 'center',
-          padding: '1rem',
-          background: '#f8fafc',
-          borderRadius: '0.75rem',
-          border: '1px solid #e2e8f0'
-        }}>
-          <div style={{
-            fontSize: '0.875rem',
-            color: '#64748b',
-            marginBottom: '0.25rem'
+        <div
+          style={{
+            textAlign: 'center',
+            padding: '1rem',
+            background: '#f8fafc',
+            borderRadius: '0.75rem',
+            border: '1px solid #e2e8f0',
           }}>
+          <div
+            style={{
+              fontSize: '0.875rem',
+              color: '#64748b',
+              marginBottom: '0.25rem',
+            }}>
             Showing{' '}
             <span style={{ fontWeight: '600', color: '#1f2937' }}>
-              {pagination.total > 0 ? (currentPage - 1) * pagination.limit + 1 : 0}
-            </span>
-            {' '}to{' '}
+              {pagination.total > 0
+                ? (currentPage - 1) * pagination.limit + 1
+                : 0}
+            </span>{' '}
+            to{' '}
             <span style={{ fontWeight: '600', color: '#1f2937' }}>
               {Math.min(currentPage * pagination.limit, pagination.total)}
-            </span>
-            {' '}of{' '}
+            </span>{' '}
+            of{' '}
             <span style={{ fontWeight: '600', color: '#1f2937' }}>
               {pagination.total}
-            </span>
-            {' '}items
+            </span>{' '}
+            items
           </div>
-          <div style={{
-            fontSize: '0.75rem',
-            color: '#9ca3af'
-          }}>
+          <div
+            style={{
+              fontSize: '0.75rem',
+              color: '#9ca3af',
+            }}>
             Page {currentPage} of {pagination.totalPages}
           </div>
         </div>
@@ -361,60 +370,68 @@ function Items() {
   return (
     <div style={{ padding: '2rem 0', minHeight: '80vh' }}>
       {/* 🎨 HERO SECTION */}
-      <div style={{
-        textAlign: 'center',
-        marginBottom: '3rem',
-        padding: '2rem 0'
-      }}>
-        <h1 style={{
-          fontSize: '2.5rem',
-          fontWeight: '800',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
-          margin: '0 0 0.5rem 0'
+      <div
+        style={{
+          textAlign: 'center',
+          marginBottom: '3rem',
+          padding: '2rem 0',
         }}>
+        <h1
+          style={{
+            fontSize: '2.5rem',
+            fontWeight: '800',
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            margin: '0 0 0.5rem 0',
+          }}>
           Discover Amazing Items
         </h1>
-        <p style={{
-          fontSize: '1.125rem',
-          color: '#64748b',
-          margin: '0',
-          maxWidth: '600px',
-          marginLeft: 'auto',
-          marginRight: 'auto'
-        }}>
-          Browse our curated collection with advanced search, pagination, and performance optimization
+        <p
+          style={{
+            fontSize: '1.125rem',
+            color: '#64748b',
+            margin: '0',
+            maxWidth: '600px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}>
+          Browse our curated collection with advanced search, pagination, and
+          performance optimization
         </p>
       </div>
 
       {/* 🔍 MODERN SEARCH CONTROLS */}
-      <div style={{
-        background: 'white',
-        padding: '2rem',
-        borderRadius: '1rem',
-        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-        border: '1px solid rgba(226, 232, 240, 0.8)',
-        marginBottom: '2rem'
-      }}>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1.5rem'
+      <div
+        style={{
+          background: 'white',
+          padding: '2rem',
+          borderRadius: '1rem',
+          boxShadow:
+            '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+          border: '1px solid rgba(226, 232, 240, 0.8)',
+          marginBottom: '2rem',
         }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.5rem',
+          }}>
           {/* Search Input with Icon */}
           <div style={{ position: 'relative' }}>
-            <div style={{
-              position: 'absolute',
-              left: '1rem',
-              top: '50%',
-              transform: 'translateY(-50%)',
-              fontSize: '1.25rem',
-              color: '#9ca3af',
-              pointerEvents: 'none',
-              zIndex: 1
-            }}>
+            <div
+              style={{
+                position: 'absolute',
+                left: '1rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                fontSize: '1.25rem',
+                color: '#9ca3af',
+                pointerEvents: 'none',
+                zIndex: 1,
+              }}>
               🔍
             </div>
             <input
@@ -437,8 +454,8 @@ function Items() {
                 ':focus': {
                   borderColor: '#667eea',
                   backgroundColor: 'white',
-                  boxShadow: '0 0 0 3px rgba(102, 126, 234, 0.1)'
-                }
+                  boxShadow: '0 0 0 3px rgba(102, 126, 234, 0.1)',
+                },
               }}
               onFocus={(e) => {
                 e.target.style.borderColor = '#667eea';
@@ -454,29 +471,33 @@ function Items() {
           </div>
 
           {/* Controls Row */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: '1rem'
-          }}>
-            {/* Virtualization Toggle */}
-            <label style={{
+          <div
+            style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '0.75rem',
-              cursor: 'pointer',
-              padding: '0.75rem 1rem',
-              background: useVirtualization ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : '#f1f5f9',
-              borderRadius: '0.75rem',
-              border: '2px solid',
-              borderColor: useVirtualization ? 'transparent' : '#e2e8f0',
-              color: useVirtualization ? 'white' : '#475569',
-              fontWeight: '500',
-              transition: 'all 0.2s ease',
-              userSelect: 'none'
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '1rem',
             }}>
+            {/* Virtualization Toggle */}
+            <label
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                cursor: 'pointer',
+                padding: '0.75rem 1rem',
+                background: useVirtualization
+                  ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                  : '#f1f5f9',
+                borderRadius: '0.75rem',
+                border: '2px solid',
+                borderColor: useVirtualization ? 'transparent' : '#e2e8f0',
+                color: useVirtualization ? 'white' : '#475569',
+                fontWeight: '500',
+                transition: 'all 0.2s ease',
+                userSelect: 'none',
+              }}>
               <input
                 type='checkbox'
                 checked={useVirtualization}
@@ -490,13 +511,14 @@ function Items() {
                 {useVirtualization ? 'Performance Mode' : 'Standard View'}
               </span>
               {useVirtualization && (
-                <span style={{
-                  background: 'rgba(255, 255, 255, 0.2)',
-                  padding: '0.25rem 0.5rem',
-                  borderRadius: '0.5rem',
-                  fontSize: '0.75rem',
-                  fontWeight: '600'
-                }}>
+                <span
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.2)',
+                    padding: '0.25rem 0.5rem',
+                    borderRadius: '0.5rem',
+                    fontSize: '0.75rem',
+                    fontWeight: '600',
+                  }}>
                   OPTIMIZED
                 </span>
               )}
@@ -504,21 +526,23 @@ function Items() {
 
             {/* Loading Indicator */}
             {loading && (
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                color: '#667eea',
-                fontWeight: '500'
-              }}>
-                <div style={{
-                  width: '1rem',
-                  height: '1rem',
-                  border: '2px solid #e2e8f0',
-                  borderTop: '2px solid #667eea',
-                  borderRadius: '50%',
-                  animation: 'spin 1s linear infinite'
-                }}></div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  color: '#667eea',
+                  fontWeight: '500',
+                }}>
+                <div
+                  style={{
+                    width: '1rem',
+                    height: '1rem',
+                    border: '2px solid #e2e8f0',
+                    borderTop: '2px solid #667eea',
+                    borderRadius: '50%',
+                    animation: 'spin 1s linear infinite',
+                  }}></div>
                 Loading...
               </div>
             )}
@@ -528,104 +552,124 @@ function Items() {
 
       {/* 📊 RESULTS SUMMARY & PERFORMANCE INFO */}
       {(searchQuery || items.length > 0) && (
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem',
-          marginBottom: '2rem'
-        }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1rem',
+            marginBottom: '2rem',
+          }}>
           {/* Search Results Summary */}
           {searchQuery && (
-            <div style={{
-              background: 'white',
-              padding: '1rem 1.5rem',
-              borderRadius: '0.75rem',
-              border: '2px solid #dbeafe',
-              borderLeftColor: '#3b82f6',
-              borderLeftWidth: '4px'
-            }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                color: '#1e40af',
-                fontWeight: '600'
+            <div
+              style={{
+                background: 'white',
+                padding: '1rem 1.5rem',
+                borderRadius: '0.75rem',
+                border: '2px solid #dbeafe',
+                borderLeftColor: '#3b82f6',
+                borderLeftWidth: '4px',
               }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  color: '#1e40af',
+                  fontWeight: '600',
+                }}>
                 <span>🔍</span>
-                Search results for <span style={{ 
-                  background: '#dbeafe',
-                  padding: '0.25rem 0.5rem',
-                  borderRadius: '0.375rem',
-                  fontFamily: 'monospace'
-                }}>"{searchQuery}"</span>
+                Search results for{' '}
+                <span
+                  style={{
+                    background: '#dbeafe',
+                    padding: '0.25rem 0.5rem',
+                    borderRadius: '0.375rem',
+                    fontFamily: 'monospace',
+                  }}>
+                  "{searchQuery}"
+                </span>
               </div>
-              <p style={{
-                margin: '0.5rem 0 0 0',
-                color: '#64748b',
-                fontSize: '0.875rem'
-              }}>
-                Found {pagination.total} {pagination.total === 1 ? 'item' : 'items'}
+              <p
+                style={{
+                  margin: '0.5rem 0 0 0',
+                  color: '#64748b',
+                  fontSize: '0.875rem',
+                }}>
+                Found {pagination.total}{' '}
+                {pagination.total === 1 ? 'item' : 'items'}
               </p>
             </div>
           )}
 
           {/* Performance Information */}
           {items.length > 0 && (
-            <div style={{
-              background: useVirtualization ? 
-                'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)' :
-                'rgba(245, 245, 245, 0.8)',
-              padding: '1.5rem',
-              borderRadius: '0.75rem',
-              border: '2px solid',
-              borderColor: useVirtualization ? 'rgba(102, 126, 234, 0.2)' : '#e5e7eb'
-            }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                marginBottom: '0.75rem'
+            <div
+              style={{
+                background: useVirtualization
+                  ? 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)'
+                  : 'rgba(245, 245, 245, 0.8)',
+                padding: '1.5rem',
+                borderRadius: '0.75rem',
+                border: '2px solid',
+                borderColor: useVirtualization
+                  ? 'rgba(102, 126, 234, 0.2)'
+                  : '#e5e7eb',
               }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  marginBottom: '0.75rem',
+                }}>
                 <span style={{ fontSize: '1.5rem' }}>
                   {useVirtualization ? '⚡' : '📊'}
                 </span>
-                <h3 style={{
-                  margin: '0',
-                  fontSize: '1.125rem',
-                  fontWeight: '700',
-                  color: useVirtualization ? '#4c1d95' : '#374151'
-                }}>
+                <h3
+                  style={{
+                    margin: '0',
+                    fontSize: '1.125rem',
+                    fontWeight: '700',
+                    color: useVirtualization ? '#4c1d95' : '#374151',
+                  }}>
                   Performance Analytics
                 </h3>
                 {useVirtualization && (
-                  <span style={{
-                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                    color: 'white',
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '1rem',
-                    fontSize: '0.75rem',
-                    fontWeight: '600'
-                  }}>
+                  <span
+                    style={{
+                      background:
+                        'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                      color: 'white',
+                      padding: '0.25rem 0.75rem',
+                      borderRadius: '1rem',
+                      fontSize: '0.75rem',
+                      fontWeight: '600',
+                    }}>
                     OPTIMIZED
                   </span>
                 )}
               </div>
-              <p style={{
-                margin: '0',
-                color: useVirtualization ? '#5b21b6' : '#6b7280',
-                fontSize: '0.875rem',
-                lineHeight: '1.5'
-              }}>
+              <p
+                style={{
+                  margin: '0',
+                  color: useVirtualization ? '#5b21b6' : '#6b7280',
+                  fontSize: '0.875rem',
+                  lineHeight: '1.5',
+                }}>
                 {useVirtualization ? (
                   <>
-                    <strong>Virtualized rendering active:</strong> Only visible items are rendered in the DOM. 
-                    This enables smooth scrolling through thousands of items with minimal memory usage.
-                    Currently displaying {items.length} items with zero performance impact! 🚀
+                    <strong>Virtualized rendering active:</strong> Only visible
+                    items are rendered in the DOM. This enables smooth scrolling
+                    through thousands of items with minimal memory usage.
+                    Currently displaying {items.length} items with zero
+                    performance impact! 🚀
                   </>
                 ) : (
                   <>
-                    <strong>Standard rendering:</strong> All {items.length} items are rendered in the DOM. 
-                    For large datasets, this can impact performance. Try enabling Performance Mode above! ⚡
+                    <strong>Standard rendering:</strong> All {items.length}{' '}
+                    items are rendered in the DOM. For large datasets, this can
+                    impact performance. Try enabling Performance Mode above! ⚡
                   </>
                 )}
               </p>
@@ -636,36 +680,40 @@ function Items() {
 
       {/* 🎯 ITEMS DISPLAY SECTION */}
       {items.length === 0 && !loading ? (
-        <div style={{
-          textAlign: 'center',
-          padding: '4rem 2rem',
-          background: 'white',
-          borderRadius: '1rem',
-          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-          border: '1px solid #f1f5f9'
-        }}>
-          <div style={{
-            fontSize: '4rem',
-            marginBottom: '1rem'
+        <div
+          style={{
+            textAlign: 'center',
+            padding: '4rem 2rem',
+            background: 'white',
+            borderRadius: '1rem',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+            border: '1px solid #f1f5f9',
           }}>
+          <div
+            style={{
+              fontSize: '4rem',
+              marginBottom: '1rem',
+            }}>
             {searchQuery ? '🔍' : '📦'}
           </div>
-          <h3 style={{
-            fontSize: '1.5rem',
-            fontWeight: '600',
-            color: '#374151',
-            margin: '0 0 0.5rem 0'
-          }}>
+          <h3
+            style={{
+              fontSize: '1.5rem',
+              fontWeight: '600',
+              color: '#374151',
+              margin: '0 0 0.5rem 0',
+            }}>
             {searchQuery ? 'No Items Found' : 'No Items Available'}
           </h3>
-          <p style={{
-            color: '#6b7280',
-            fontSize: '1rem',
-            margin: '0',
-            maxWidth: '400px',
-            marginLeft: 'auto',
-            marginRight: 'auto'
-          }}>
+          <p
+            style={{
+              color: '#6b7280',
+              fontSize: '1rem',
+              margin: '0',
+              maxWidth: '400px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            }}>
             {searchQuery
               ? `No items match your search for "${searchQuery}". Try a different search term.`
               : 'There are no items in the catalog at the moment.'}
@@ -685,11 +733,14 @@ function Items() {
                 borderRadius: '0.75rem',
                 fontWeight: '600',
                 cursor: 'pointer',
-                transition: 'all 0.2s ease'
+                transition: 'all 0.2s ease',
               }}
-              onMouseEnter={(e) => e.target.style.transform = 'translateY(-2px)'}
-              onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}
-            >
+              onMouseEnter={(e) =>
+                (e.target.style.transform = 'translateY(-2px)')
+              }
+              onMouseLeave={(e) =>
+                (e.target.style.transform = 'translateY(0)')
+              }>
               Clear Search
             </button>
           )}
@@ -697,13 +748,14 @@ function Items() {
       ) : useVirtualization ? (
         <>
           {/* 🚀 VIRTUALIZED LIST CONTAINER */}
-          <div style={{
-            background: 'white',
-            borderRadius: '1rem',
-            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
-            border: '1px solid #f1f5f9',
-            overflow: 'hidden'
-          }}>
+          <div
+            style={{
+              background: 'white',
+              borderRadius: '1rem',
+              boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
+              border: '1px solid #f1f5f9',
+              overflow: 'hidden',
+            }}>
             <VirtualizedItemList
               items={items}
               searchQuery={searchQuery}
@@ -719,83 +771,102 @@ function Items() {
       ) : (
         <>
           {/* 🎨 BEAUTIFUL ITEM CARDS GRID */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-            gap: '1.5rem',
-            marginBottom: '2rem'
-          }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+              gap: '1.5rem',
+              marginBottom: '2rem',
+            }}>
             {items.map((item, index) => (
               <div
                 key={item.id}
                 style={{
                   background: 'white',
                   borderRadius: '1rem',
-                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                  boxShadow:
+                    '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                   border: '1px solid #f1f5f9',
                   overflow: 'hidden',
                   transition: 'all 0.3s ease',
                   cursor: 'pointer',
                   transform: 'translateY(0)',
                   animation: `fadeInUp 0.6s ease forwards ${index * 0.1}s`,
-                  opacity: 0
+                  opacity: 0,
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-8px)';
-                  e.currentTarget.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+                  e.currentTarget.style.boxShadow =
+                    '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
-                }}
-              >
-                {/* Card Header */}
-                <div style={{
-                  background: `linear-gradient(135deg, hsl(${(item.id * 137.5) % 360}, 70%, 60%) 0%, hsl(${(item.id * 137.5 + 60) % 360}, 70%, 70%) 100%)`,
-                  padding: '1.5rem',
-                  position: 'relative',
-                  overflow: 'hidden'
+                  e.currentTarget.style.boxShadow =
+                    '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
                 }}>
-                  <div style={{
-                    position: 'absolute',
-                    top: '-50%',
-                    right: '-50%',
-                    width: '200%',
-                    height: '200%',
-                    background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
-                    transform: 'rotate(45deg)'
-                  }}></div>
-                  <div style={{
+                {/* Card Header */}
+                <div
+                  style={{
+                    background: `linear-gradient(135deg, hsl(${
+                      (item.id * 137.5) % 360
+                    }, 70%, 60%) 0%, hsl(${
+                      (item.id * 137.5 + 60) % 360
+                    }, 70%, 70%) 100%)`,
+                    padding: '1.5rem',
                     position: 'relative',
-                    zIndex: 1
+                    overflow: 'hidden',
                   }}>
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.75rem',
-                      marginBottom: '0.5rem'
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '-50%',
+                      right: '-50%',
+                      width: '200%',
+                      height: '200%',
+                      background:
+                        'radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%)',
+                      transform: 'rotate(45deg)',
+                    }}></div>
+                  <div
+                    style={{
+                      position: 'relative',
+                      zIndex: 1,
                     }}>
-                      <span style={{
-                        background: 'rgba(255, 255, 255, 0.2)',
-                        padding: '0.5rem',
-                        borderRadius: '0.5rem',
-                        fontSize: '1.25rem',
-                        backdropFilter: 'blur(10px)'
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.75rem',
+                        marginBottom: '0.5rem',
                       }}>
-                        {item.category === 'Electronics' ? '💻' : 
-                         item.category === 'Clothing' ? '👕' : 
-                         item.category === 'Books' ? '📚' : 
-                         item.category === 'Sports' ? '⚽' : '🛍️'}
+                      <span
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.2)',
+                          padding: '0.5rem',
+                          borderRadius: '0.5rem',
+                          fontSize: '1.25rem',
+                          backdropFilter: 'blur(10px)',
+                        }}>
+                        {item.category === 'Electronics'
+                          ? '💻'
+                          : item.category === 'Clothing'
+                          ? '👕'
+                          : item.category === 'Books'
+                          ? '📚'
+                          : item.category === 'Sports'
+                          ? '⚽'
+                          : '🛍️'}
                       </span>
-                      <span style={{
-                        background: 'rgba(255, 255, 255, 0.2)',
-                        color: 'white',
-                        padding: '0.25rem 0.75rem',
-                        borderRadius: '1rem',
-                        fontSize: '0.75rem',
-                        fontWeight: '600',
-                        backdropFilter: 'blur(10px)'
-                      }}>
+                      <span
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.2)',
+                          color: 'white',
+                          padding: '0.25rem 0.75rem',
+                          borderRadius: '1rem',
+                          fontSize: '0.75rem',
+                          fontWeight: '600',
+                          backdropFilter: 'blur(10px)',
+                        }}>
                         {item.category}
                       </span>
                     </div>
@@ -809,54 +880,62 @@ function Items() {
                     style={{
                       textDecoration: 'none',
                       color: '#1f2937',
-                      display: 'block'
-                    }}
-                  >
-                    <h3 style={{
-                      fontSize: '1.25rem',
-                      fontWeight: '700',
-                      margin: '0 0 0.75rem 0',
-                      color: '#1f2937',
-                      lineHeight: '1.3'
+                      display: 'block',
                     }}>
+                    <h3
+                      style={{
+                        fontSize: '1.25rem',
+                        fontWeight: '700',
+                        margin: '0 0 0.75rem 0',
+                        color: '#1f2937',
+                        lineHeight: '1.3',
+                      }}>
                       {item.name}
                     </h3>
                   </Link>
-                  
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    marginTop: '1rem'
-                  }}>
-                    <div style={{
-                      fontSize: '1.5rem',
-                      fontWeight: '800',
-                      color: '#059669',
+
+                  <div
+                    style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '0.25rem'
+                      justifyContent: 'space-between',
+                      marginTop: '1rem',
                     }}>
-                      <span style={{ fontSize: '1rem', opacity: '0.8' }}>$</span>
+                    <div
+                      style={{
+                        fontSize: '1.5rem',
+                        fontWeight: '800',
+                        color: '#059669',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.25rem',
+                      }}>
+                      <span style={{ fontSize: '1rem', opacity: '0.8' }}>
+                        $
+                      </span>
                       {item.price.toLocaleString()}
                     </div>
-                    
+
                     <Link
                       to={'/items/' + item.id}
                       style={{
                         textDecoration: 'none',
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        background:
+                          'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                         color: 'white',
                         padding: '0.5rem 1rem',
                         borderRadius: '0.5rem',
                         fontSize: '0.875rem',
                         fontWeight: '600',
                         transition: 'all 0.2s ease',
-                        display: 'inline-block'
+                        display: 'inline-block',
                       }}
-                      onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
-                      onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
-                    >
+                      onMouseEnter={(e) =>
+                        (e.target.style.transform = 'scale(1.05)')
+                      }
+                      onMouseLeave={(e) =>
+                        (e.target.style.transform = 'scale(1)')
+                      }>
                       View Details →
                     </Link>
                   </div>
