@@ -28,13 +28,9 @@ function ItemDetail() {
         }
 
         const itemData = await response.json();
-        console.log('📦 Item data received:', itemData);
 
         if (isMountedRef.current) {
-          console.log('✅ Component mounted, setting item data');
           setItem(itemData);
-        } else {
-          console.log('❌ Component unmounted, skipping setItem');
         }
       } catch (err) {
         if (isMountedRef.current && err.name !== 'AbortError') {
@@ -42,12 +38,8 @@ function ItemDetail() {
           console.error('Failed to fetch item:', err);
         }
       } finally {
-        console.log('🏁 Finally block - isMounted:', isMountedRef.current);
         if (isMountedRef.current) {
-          console.log('✅ Setting loading to false');
           setLoading(false);
-        } else {
-          console.log('❌ Component unmounted, skipping setLoading(false)');
         }
       }
     };
