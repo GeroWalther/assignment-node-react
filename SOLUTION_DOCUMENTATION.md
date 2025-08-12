@@ -1,6 +1,6 @@
-# 🚀 Home Assessment Solution Documentation
+#  Home Assessment Solution Documentation
 
-## 📋 Overview
+##  Overview
 
 This document outlines my comprehensive solutions implemented to address all identified issues in the take-home assessment. Best practices with detailed explanations and comments.
 
