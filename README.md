@@ -121,7 +121,7 @@ docker compose -f docker-compose.prod.yml up
 
 ```bash
 # Local build with hot reload - when actively coding
-./dev.sh
+./scripts/dev.sh
 
 # Or manually:
 docker compose -f docker-compose.dev.yml up --build
@@ -162,7 +162,7 @@ npm start
 
 ```bash
 # 1. Develop with hot reload
-./dev.sh
+./scripts/dev.sh
 
 # 2. When ready to share/deploy - build and push to registry
 ./scripts/build-and-push.sh
@@ -205,7 +205,7 @@ rm -rf backend/ frontend/  # Delete source code
 | Development Mode                | Production Images                    |
 | ------------------------------- | ------------------------------------ |
 | **Needs source code**           | **No source code needed**            |
-| `./dev.sh` requires local files | `./scripts/run-prod.sh` pulls images |
+| `./scripts/dev.sh` requires local files | `./scripts/run-prod.sh` pulls images |
 | Hot reload with volume mounting | Self-contained, immutable images     |
 | Fast iteration for coding       | Fast deployment anywhere             |
 
@@ -213,7 +213,7 @@ rm -rf backend/ frontend/  # Delete source code
 
 - **Code updates**: `git pull` → Updates your local source files
 - **Image updates**: `./scripts/run-prod.sh` → Pulls latest Docker images
-- **Development**: Use `git pull` + `./dev.sh` for hot reload
+- **Development**: Use `git pull` + `./scripts/dev.sh` for hot reload
 - **Deployment**: Use `./scripts/run-prod.sh` for instant startup
 
 ## 📊 Performance Improvements

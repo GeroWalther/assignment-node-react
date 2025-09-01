@@ -37,7 +37,7 @@ frontend:
 
 ```bash
 # Option 1: Using the convenience script
-./dev.sh
+./scripts/dev.sh
 
 # Option 2: Direct Docker Compose
 docker compose -f docker-compose.dev.yml up --build
@@ -100,7 +100,7 @@ volumes:
 
 ```bash
 # Start entire stack with hot reload
-./dev.sh
+./scripts/dev.sh
 
 # Or with Docker Compose directly
 docker compose -f docker-compose.dev.yml up --build
@@ -200,7 +200,7 @@ backend:
 
 ### **Developer Experience:**
 
-- ✅ **One command startup**: `./dev.sh` starts everything
+- ✅ **One command startup**: `./scripts/dev.sh` starts everything
 - ✅ **Hot reload**: Instant feedback on code changes
 - ✅ **Consistent environment**: Same setup across all machines
 - ✅ **No local dependencies**: Only Docker required
@@ -218,7 +218,7 @@ backend:
 
 This is a crucial concept that many developers miss:
 
-**Development Mode (`./dev.sh`):**
+**Development Mode (`./scripts/dev.sh`):**
 
 - **Requires**: Local source code files (`./backend/src/`, `./frontend/src/`)
 - **How it works**: Volume mounting maps your local files into containers
@@ -269,7 +269,7 @@ rm -rf backend/ frontend/  # Delete ALL your source code
 
 ```bash
 git pull origin main  # Get colleague's source code changes
-./dev.sh             # Develop with hot reload using updated code
+./scripts/dev.sh             # Develop with hot reload using updated code
 ```
 
 **For Image Updates:**
@@ -355,7 +355,7 @@ docker compose -f docker-compose.dev.yml build --no-cache
 1. **Ensure Docker is running**
 2. **Run the magic command:**
    ```bash
-   ./dev.sh
+   ./scripts/dev.sh
    ```
 3. **Wait for all services to start** (~2-3 minutes first time)
 4. **Open your browser** to http://localhost:3000
