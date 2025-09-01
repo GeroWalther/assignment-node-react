@@ -147,6 +147,33 @@ docker compose -f docker-compose.dev.yml ps
 
 # Follow logs in real-time
 docker compose -f docker-compose.dev.yml logs -f
+
+# Stop production stack
+docker compose -f docker-compose.prod.yml down
+
+# Stop development stack
+docker compose -f docker-compose.dev.yml down
+
+# Nuclear option - stop ALL Docker containers
+docker stop $(docker ps -q)
+
+# Remove unused images (free up disk space)
+docker image prune
+
+# Remove all unused containers, networks, images
+docker system prune
+
+# Remove everything including volumes (⚠️ DELETES DATA!)
+docker system prune --volumes
+
+# See running containers
+docker ps
+
+# See all containers (including stopped)
+docker ps -a
+
+# See resource usage
+docker stats
 ```
 
 ## 🌐 Access Points
