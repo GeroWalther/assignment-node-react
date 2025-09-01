@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: assessment-mongodb-dev
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: assessment_db
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - assessment-network
+
+  # MongoDB Express (Database Management UI)
+  mongo-express:
+    image: mongo-express:1.0.2
+    container_name: assessment-mongo-express-dev
+    restart: unless-stopped
+    ports:
+      - '8081:8081'
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password123
+      ME_CONFIG_MONGODB_URL: mongodb://admin:password123@mongodb:27017/
+      ME_CONFIG_BASICAUTH: false
+    depends_on:
+      - mongodb
+    networks:
+      - assessment-network
+
+  # Backend API with Hot Reload
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: assessment-backend-dev
+    restart: unless-stopped
+    ports:
+      - '4001:4001'
+    environment:
+      - NODE_ENV=development
+      - MONGODB_URI=mongodb://admin:password123@mongodb:27017/assessment_db?authSource=admin
+      - PORT=4001
+    volumes:
+      # Mount source code for hot reload
+      - ./backend/src:/app/src
+      - ./backend/package.json:/app/package.json
+      # Exclude node_modules to avoid conflicts
+      - /app/node_modules
+    depends_on:
+      - mongodb
+    networks:
+      - assessment-network
+    # Wait for MongoDB to be ready
+    command: sh -c "sleep 10 && nodemon src/index.js"
+
+  # Frontend with Hot Reload
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: assessment-frontend-dev
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      # Enable hot reload for Create React App
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_URL=http://localhost:4001
+    volumes:
+      # Mount source code for hot reload
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/package.json:/app/package.json
+      # Exclude node_modules to avoid conflicts
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - assessment-network
+    stdin_open: true # Keep STDIN open for React
+    tty: true # Allocate pseudo-TTY for React
+
+volumes:
+  mongodb_data:
+
+networks:
+  assessment-network:
+    driver: bridge

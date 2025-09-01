@@ -102,14 +102,24 @@ Welcome! This project has been **significantly enhanced** beyond the original as
 - **MongoDB Enhancement:** Additional 4–6 hours of professional development
 - **Total Value:** Enterprise-level full-stack application with production patterns
 
-## 🚀 Quick Start - Enhanced Setup
+## 🚀 Quick Start - Multiple Options
 
-### **Prerequisites:**
+### **Option 1: Full Docker Development (Recommended) 🐳**
 
-- Node.js 18.XX
-- Docker & Docker Compose
+```bash
+# One command to start everything with hot reload!
+./dev.sh
 
-### **Setup Commands:**
+# Or manually:
+docker compose -f docker-compose.dev.yml up --build
+```
+
+**Benefits:** Hot reload, consistent environment, no local dependencies needed!
+**See:** `DOCKER_DEVELOPMENT_GUIDE.md` for complete details
+
+### **Option 2: Traditional Local Development**
+
+**Prerequisites:** Node.js 18.XX + Docker & Docker Compose
 
 ```bash
 # 1. Start MongoDB containers
