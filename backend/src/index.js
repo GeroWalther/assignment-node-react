@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const killPort = require('kill-port');
 const path = require('path');
+const connectDB = require('./config/db');
 const itemsRouter = require('./routes/items');
 const statsRouter = require('./routes/stats');
 // Removed initRuntimeConfig - external API dependency not needed for assessment
@@ -28,47 +29,56 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const startServer = (port) => {
-  console.log('🚀 Starting optimized backend server...');
-  const server = app.listen(port, () => {
-    console.log(`✅ Backend running on http://localhost:${port}`);
-    console.log('📋 Available endpoints:');
-    console.log('   GET  /api/items?page=1&limit=10');
-    console.log('   GET  /api/items?q=laptop');
-    console.log('   GET  /api/stats');
-    console.log('   POST /api/items');
-  });
+const startServer = async (port) => {
+  try {
+    // Connect to MongoDB first
+    await connectDB();
 
-  const shutdownHandler = (signal) => {
-    console.log(`\nCaught ${signal}. Shutting down gracefully...`);
-    server.close(() => {
-      console.log('Server closed. Port released.');
-      process.exit(0);
+    console.log('🚀 Starting optimized backend server...');
+    const server = app.listen(port, () => {
+      console.log(`✅ Backend running on http://localhost:${port}`);
+      console.log('📋 Available endpoints:');
+      console.log('   GET  /api/items?page=1&limit=10');
+      console.log('   GET  /api/items?q=laptop');
+      console.log('   GET  /api/stats');
+      console.log('   POST /api/items');
+      console.log('💡 MongoDB UI available at: http://localhost:8081');
     });
 
-    setTimeout(() => {
-      console.error('Force exiting after timeout');
-      process.exit(1);
-    }, 5000);
-  };
+    const shutdownHandler = (signal) => {
+      console.log(`\nCaught ${signal}. Shutting down gracefully...`);
+      server.close(() => {
+        console.log('Server closed. Port released.');
+        process.exit(0);
+      });
 
-  process.on('SIGINT', () => shutdownHandler('SIGINT'));
-  process.on('SIGTERM', () => shutdownHandler('SIGTERM'));
-  process.on('uncaughtException', (err) => {
-    console.error('Uncaught Exception:', err);
-    shutdownHandler('uncaughtException');
-  });
+      setTimeout(() => {
+        console.error('Force exiting after timeout');
+        process.exit(1);
+      }, 5000);
+    };
+
+    process.on('SIGINT', () => shutdownHandler('SIGINT'));
+    process.on('SIGTERM', () => shutdownHandler('SIGTERM'));
+    process.on('uncaughtException', (err) => {
+      console.error('Uncaught Exception:', err);
+      shutdownHandler('uncaughtException');
+    });
+  } catch (error) {
+    console.error('❌ Failed to start server:', error.message);
+    process.exit(1);
+  }
 };
 
 // Kill port BEFORE starting server
 killPort(PORT, 'tcp')
-  .then(() => {
+  .then(async () => {
     console.log(`Port ${PORT} killed. Starting fresh server...`);
-    startServer(PORT);
+    await startServer(PORT);
   })
-  .catch((err) => {
+  .catch(async (err) => {
     console.warn(
       `Port ${PORT} may not have been in use. Starting server anyway...`
     );
-    startServer(PORT);
+    await startServer(PORT);
   });
