@@ -1,9 +1,17 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const killPort = require('kill-port');
 const path = require('path');
 const connectDB = require('./config/db');
+
+// Only require kill-port in development
+let killPort;
+try {
+  killPort = require('kill-port');
+} catch (err) {
+  // kill-port not available in production - that's fine
+  killPort = null;
+}
 const itemsRouter = require('./routes/items');
 const statsRouter = require('./routes/stats');
 // Removed initRuntimeConfig - external API dependency not needed for assessment
@@ -70,15 +78,21 @@ const startServer = async (port) => {
   }
 };
 
-// Kill port BEFORE starting server
-killPort(PORT, 'tcp')
-  .then(async () => {
-    console.log(`Port ${PORT} killed. Starting fresh server...`);
-    await startServer(PORT);
-  })
-  .catch(async (err) => {
-    console.warn(
-      `Port ${PORT} may not have been in use. Starting server anyway...`
-    );
-    await startServer(PORT);
-  });
+// Kill port BEFORE starting server (development only)
+if (killPort) {
+  killPort(PORT, 'tcp')
+    .then(async () => {
+      console.log(`Port ${PORT} killed. Starting fresh server...`);
+      await startServer(PORT);
+    })
+    .catch(async (err) => {
+      console.warn(
+        `Port ${PORT} may not have been in use. Starting server anyway...`
+      );
+      await startServer(PORT);
+    });
+} else {
+  // Production: start server directly
+  console.log('🏭 Production mode: starting server directly...');
+  startServer(PORT);
+}
