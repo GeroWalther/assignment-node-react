@@ -212,6 +212,107 @@ backend:
 - ✅ **Easy onboarding**: New developers up and running in minutes
 - ✅ **Isolated services**: Each service in its own container
 
+## 💡 Understanding Docker Images vs Source Code
+
+### **🎯 Key Insight: Docker Images are Self-Contained Applications**
+
+This is a crucial concept that many developers miss:
+
+**Development Mode (`./dev.sh`):**
+
+- **Requires**: Local source code files (`./backend/src/`, `./frontend/src/`)
+- **How it works**: Volume mounting maps your local files into containers
+- **Benefit**: Hot reload - edit code, see changes instantly
+- **Use case**: Active development, debugging, experimentation
+
+**Production Images (`./scripts/run-prod.sh`):**
+
+- **Requires**: Only Docker (no source code needed!)
+- **How it works**: Code is baked into the Docker images during build
+- **Benefit**: Run anywhere, no dependencies, immutable deployments
+- **Use case**: Demos, sharing, production deployment
+
+### **What's Inside a Docker Image?**
+
+When you run `./scripts/build-and-push.sh`, it creates images containing:
+
+- ✅ **Your complete source code**
+- ✅ **All dependencies** (node_modules, packages)
+- ✅ **Runtime environment** (Node.js, nginx)
+- ✅ **Configuration files**
+- ✅ **Everything needed to run the application**
+
+### **The Power of Self-Contained Images:**
+
+```bash
+# Extreme example - this actually works:
+rm -rf backend/ frontend/  # Delete ALL your source code
+./scripts/run-prod.sh      # App still runs perfectly!
+```
+
+**Why?** Because your code lives inside the Docker images, not on your filesystem.
+
+### **Two Worlds of Development:**
+
+| Aspect           | Development Mode    | Production Images         |
+| ---------------- | ------------------- | ------------------------- |
+| **Source Code**  | Required locally    | Not needed (baked in)     |
+| **Dependencies** | Volume mounted      | Built into image          |
+| **Hot Reload**   | ✅ Yes              | ❌ No                     |
+| **Startup Time** | 3-5 minutes (build) | 30 seconds (pull)         |
+| **Use Case**     | Active coding       | Deployment/sharing        |
+| **Internet**     | Not required        | Required (to pull images) |
+
+### **Team Collaboration Workflow:**
+
+**For Code Changes:**
+
+```bash
+git pull origin main  # Get colleague's source code changes
+./dev.sh             # Develop with hot reload using updated code
+```
+
+**For Image Updates:**
+
+```bash
+./scripts/run-prod.sh  # Automatically pulls colleague's latest images
+# No git pull needed - images contain the code
+```
+
+### **Real-World Scenarios:**
+
+**Scenario 1: New Team Member**
+
+```bash
+# Traditional way:
+git clone repo
+cd project
+npm install  # Install frontend deps
+cd backend && npm install  # Install backend deps
+# Setup database, configure environment...
+# 30+ minutes of setup
+
+# With Docker images:
+./scripts/run-prod.sh  # 30 seconds - done!
+```
+
+**Scenario 2: Cloud Deployment**
+
+```bash
+# On AWS/Azure/GCP server (no source code):
+docker compose -f docker-compose.prod.yml up -d
+# Application running in production
+```
+
+**Scenario 3: Demo/Presentation**
+
+```bash
+# Clean machine, no development setup:
+./scripts/run-prod.sh  # Professional demo ready instantly
+```
+
+This is exactly how **Netflix, Spotify, and Airbnb** deploy applications - build once, run anywhere with Docker images! 🚀
+
 ## 🐛 Troubleshooting
 
 ### **Common Issues:**
